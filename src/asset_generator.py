@@ -86,6 +86,7 @@ class AssetGenerator:
         - Culturally relevant to {target_region}
         - High contrast, eye-catching colors
         - Suitable for social media ads
+        - NO TEXT, NUMBERS, OR WORDS in the image
         - Professional quality suitable for global brand
         """
         
