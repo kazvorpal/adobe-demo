@@ -1,0 +1,24 @@
+{
+  "campaign_id": "SUMMER_24_LATAM",
+  "campaign_name": "Summer Campaign - LATAM",
+  "target_region": "Brazil",
+  "target_audience": "18-35, urban, mobile-first",
+  "campaign_message": "Vibe con nosotros este verano",
+  "products": [
+    {
+      "name": "SportDrink_Blue",
+      "description": "Energizing blue sports drink with natural electrolytes",
+      "style": "vibrant, energetic, youthful, beachside"
+    },
+    {
+      "name": "Snack_Energy_Bar",
+      "description": "High-protein energy bars with natural ingredients",
+      "style": "modern, minimalist, healthy, active lifestyle"
+    }
+  ],
+  "brand_guidelines": {
+    "primary_colors": ["#0066CC", "#FF6B00"],
+    "font": "sans-serif",
+    "must_include_logo": false
+  }
+}
