@@ -1,0 +1,24 @@
+{
+  "campaign_id": "HIRE-KAZ",
+  "campaign_name": "Hiring Kaz — Awesomeness",
+  "target_region": "USA",
+  "target_audience": "36-50, techie, mobile-first",
+  "campaign_message": "There's Nobody Better!",
+  "products": [
+    {
+      "name": "Adobe Developer",
+      "description": "A high-tech desk with totally uber monitors and gear",
+      "style": "Cyberpunk, futuristic, sleek, high-tech"
+    },
+    {
+      "name": "AI Agentic Genius",
+      "description": "A cutting-edge AI assistant for productivity and creativity",
+      "style": "modern, minimalist, innovative, tech-savvy"
+    }
+  ],
+  "brand_guidelines": {
+    "primary_colors": ["#001F3F", "#333333"],
+    "font": "sans-serif",
+    "must_include_logo": false
+  }
+}

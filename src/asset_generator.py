@@ -71,7 +71,7 @@ class AssetGenerator:
         style: Optional[str] = None
     ) -> str:
         """Build optimized prompt for DALL-E 3"""
-        
+        text = "- NO TEXT, NUMBERS, OR WORDS in the image" if campaign_message else ""
         prompt = f"""
         Create a vibrant, professional social media advertising image for:
         
@@ -86,8 +86,8 @@ class AssetGenerator:
         - Culturally relevant to {target_region}
         - High contrast, eye-catching colors
         - Suitable for social media ads
-        - NO TEXT, NUMBERS, OR WORDS in the image
         - Professional quality suitable for global brand
+        {text}
         """
         
         return prompt.strip()

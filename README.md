@@ -152,6 +152,7 @@ For production scaling:
 - Text overlay positioning is bottom-center (could be customized)
 - No automatic brand logo insertion (manual requirement)
 - Compliance checks are basic (production would need more sophisticated checks)
+- The most important check might be to generate a description of the image and check it to see if any generated text matches, optionally re-running...this could even be passed to an LLM to judge.
 - No support for dynamic content personalization beyond text overlay
 
 ## Example Run
@@ -204,6 +205,7 @@ cat output/report.json  # View execution report
 
 ## Future Enhancements
 
+- [ ] Generative check of image by image generator in tandem with LLM
 - [ ] Support for video asset generation
 - [ ] Integration with brand DAM systems
 - [ ] Advanced content personalization (dynamic text, faces, etc.)

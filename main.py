@@ -67,51 +67,59 @@ def main():
         
         # Process each product
         output_dir = storage.output_path
+        def process(image, brief, existing_asset, text):
+            product_dir = output_dir / product_name
+            product_dir.mkdir(parents=True, exist_ok=True)
+            # Create aspect ratio versions with text overlay
+            results = AssetProcessor.create_aspect_ratios(
+                image,
+                brief["campaign_message"],
+                product_dir,
+                f"{product_name}_{brief['campaign_id']}_{'text' if text else 'backup'}"
+            )
+            # Log created assets
+            for ratio, filepath in results.items():
+                source = "reused" if existing_asset else "generated"
+                logger.log_asset_created(
+                    product_name,
+                    ratio,
+                    filepath,
+                    source
+                )
+
         for product in brief["products"]:
             product_name = product["name"]
             logger.log_product_processing(product_name)
             
             try:
+
                 # Check for existing asset
                 existing_asset = storage.get_existing_asset(product_name)
+                images = {
+                    'text': None,
+                    'backup': None
+                }
                 
                 if existing_asset:
                     print(f"  ✓ Using existing asset: {existing_asset}")
-                    image = AssetProcessor.download_image(f"file://{existing_asset}")
+                    images['text'] = AssetProcessor.download_image(f"file://{existing_asset}")
+                    process(images['text'], brief, existing_asset, text=True)
                 else:
                     # Generate new asset
-                    print(f"  Generating new asset...")
-                    image_url = generator.generate_image(
-                        product_name=product_name,
-                        product_description=product.get("description", ""),
-                        campaign_message=brief["campaign_message"],
-                        target_region=brief["target_region"],
-                        style=product.get("style", None)
-                    )
-                    
-                    # Download image
-                    image = AssetProcessor.download_image(image_url)
-                
-                # Create aspect ratio versions with text overlay
-                product_dir = output_dir / product_name
-                product_dir.mkdir(parents=True, exist_ok=True)
-                
-                results = AssetProcessor.create_aspect_ratios(
-                    image,
-                    brief["campaign_message"],
-                    product_dir,
-                    f"{product_name}_{brief['campaign_id']}"
-                )
-                
-                # Log created assets
-                for ratio, filepath in results.items():
-                    source = "reused" if existing_asset else "generated"
-                    logger.log_asset_created(
-                        product_name,
-                        ratio,
-                        filepath,
-                        source
-                    )
+                    for with_text in [False, True]:
+                        image_key = "text" if with_text else "backup"
+                        print(f"  Generating new asset...")
+                        image_url = generator.generate_image(
+                            product_name=product_name,
+                            product_description=product.get("description", ""),
+                            campaign_message=brief["campaign_message"] if with_text else "",
+                            target_region=brief["target_region"],
+                            style=product.get("style", None)
+                        )
+                        
+                        # Download image
+                        images[image_key] = AssetProcessor.download_image(image_url)
+                        process(images[image_key], brief, existing_asset=False, text=with_text)
                 
             except Exception as e:
                 logger.log_error(f"Failed to process {product_name}: {str(e)}")
